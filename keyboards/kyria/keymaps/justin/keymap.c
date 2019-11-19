@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
       LT(5, KC_TAB),   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
       KC_LEAD,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                   KC_H,    KC_J,    KC_K,    KC_L,    ARRCLN,  KC_QUOT,
-      KC_LSFT,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   _______,   KC_LEAD, KC_LEAD, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                PASTE,  OPT,    CMD,    BSPC,      LWORD,   RWORD,   SPC,    ENTL1,   MO(2),  KC_MUTE
+     KC_LSFT,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   _______,   KC_LEAD, KC_LEAD, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                                PASTE,  OPT,    CMD,    BSPC,      LWORD,   RWORD,   SPC,    ENTL1,   MO(2),  LGUI(KC_B)
     ),
 /*
  * Lower Layer: Symbols
@@ -324,17 +324,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     switch (biton32(layer_state)) {
       case _QWERTY:
         if (clockwise) {
-          tap_code(KC_PGDOWN);
+          SEND_STRING(SS_LGUI("u"));
         } else {
-          tap_code(KC_PGUP);
+          SEND_STRING(SS_LGUI("i"));
         }
         break;
 
       default:
         if (clockwise) {
-          tap_code(KC_VOLU);
+          SEND_STRING("(CONT'D)");
         } else {
-          tap_code(KC_VOLD);
+          SEND_STRING("(V.O., CONT'D)");
         }
         break;
     }
